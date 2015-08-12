@@ -22,6 +22,10 @@ var std = L.tileLayer(
   'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
     attribution: "地理院"
   });
+var seamless = L.tileLayer(
+  'http://gbank.gsj.jp/seamless/tilemap/detailed/g/{z}/{y}/{x}.png', {
+    attribution: "GSJ/AIST シームレス地質図"
+  });
 var oct = L.tileLayer(
   './{z}/{x}/{y}.png', {
     minZoom: 8, maxNativeZoom: 8, maxZoom: 18, errorTileUrl: '404.png'
@@ -32,8 +36,9 @@ var map = L.map('mapdiv', {
   layers: [std, oct]});
 
 var hash = L.hash(map);
-L.control.layers({},
-  {'地理院': std, 'octpng': oct}).addTo(map);
+L.control.layers({}, {
+  '地理院': std, 'GSJ/AIST シームレス地質図': seamless, 'octpng': oct
+}).addTo(map);
 </script>
 </body>
 </html>
