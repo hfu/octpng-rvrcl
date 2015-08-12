@@ -28,12 +28,12 @@ var oct = L.tileLayer(
   });
 
 var map = L.map('mapdiv', {
-  center: [35.722, 139.699], zoom: 8, minZoom: 8, 
+  center: [35.722, 139.699], zoom: 8, minZoom: 8,
   layers: [std, oct]});
 
 var hash = L.hash(map);
-L.control.layers({'地理院': std},
-  {'octpng': oct}).addTo(map);
+L.control.layers({},
+  {'地理院': std, 'octpng': oct}).addTo(map);
 </script>
 </body>
 </html>
