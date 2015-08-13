@@ -36,14 +36,23 @@ var oct = L.tileLayer(
     minZoom: 8, maxNativeZoom: 8, maxZoom: 18, errorTileUrl: '404.png'
   });
 
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://cyberjapandata.gsi.go.jp/xyz/experimental_rvrcl/style.js', false);
+xhr.send(null);
+var stylejs = eval( "(" + xhr.responseText + ")" );
+
+var rvrcl = new L.TileLayer.GeoJSON(
+  'http://cyberjapandata.gsi.go.jp/xyz/experimental_rvrcl/{z}/{x}/{y}.geojson',
+  stylejs.options,stylejs.geojsonOptions);
+
 var map = L.map('mapdiv', {
   center: [35.722, 139.699], zoom: 8, minZoom: 8,
-  layers: [std, oct]});
+  layers: [std, oct, rvrcl]});
 
 var hash = L.hash(map);
 L.control.layers({}, {
   '地理院標準地図': std, 'GSJ/AIST シームレス地質図': seamless,
-  '地理院白地図': blank, '川どこ地図': oct
+  '地理院白地図': blank, '川どこ地図': oct, '河川中心線': rvrcl
 }).addTo(map);
 </script>
 </body>
